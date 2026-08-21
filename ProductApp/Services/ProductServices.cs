@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using ProductApp.Data;
+using ProductApp.DTOs;
 using ProductApp.Interface;
 using ProductApp.Model;
 
@@ -34,15 +35,36 @@ namespace ProductApp.Services
             return product;
         }
 
-        public Product? GetproductById(int id)
+        public ProductResponseDto? GetproductById(int id)
         {
-            return _context.Products.Find(id);
+            var product = _context.Products.Find(id);
+
+            if (product == null)
+            {
+                return null;
+            }
+
+            return new ProductResponseDto
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                CategoryId = product.CategoryId
+            };
         }
 
-        public List<Product> GetProducts()
+
+        public List<ProductResponseDto> GetProducts()
         {
-            return _context.Products.ToList();
+            return _context.Products.Select(p => new ProductResponseDto
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price,
+                CategoryId = p.CategoryId
+            }).ToList();
         }
+
 
         public Product? UpdateItem(Product product)
         {
