@@ -2,6 +2,7 @@
 {
     public class CartItem
     {
+        public int Id { get; set; }
         public int CartId { get; set; }
         public Cart Catr { get; set; } = null!;
         public int ProductId { get; set; }
