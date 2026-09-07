@@ -33,6 +33,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProductServices, ProductServices>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+builder.Services.AddScoped<ICartServices, CartServices>();
+
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
 
         builder.Configuration.GetConnectionString("DefaultConnection")));
